@@ -41,8 +41,8 @@ class UnitsSeed extends Seeder
             // ['name' => 'Litre'],
             // ['name' => 'Litre'],
             ];               
-            foreach($userInputs as $userInput){
-                UnitTable::create($userInput); 
-            }
+            // foreach($userInputs as $userInput){
+            //     UnitTable::create($userInput); 
+            // }
     }
 }

@@ -1,274 +1,153 @@
-<?php
-App::setLocale(Session::get('locale'));
-?>
-</head>
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <title>{{ config('app.name') }} </title>
+     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+     <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+    <!-- GLOBAL STYLES -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+    <link rel="stylesheet" href="assets/css/MoneAdmin.css" />
+    <link rel="stylesheet" href="assets/plugins/Font-Awesome/css/font-awesome.css" />
+    <!--END GLOBAL STYLES -->
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-  
-    <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="icon" href="dist/img/shotram.png" type="image/gif" sizes="16x16">
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- PAGE LEVEL STYLES -->
+    <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <!-- END PAGE LEVEL  STYLES -->
+       <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <link href="assets/css/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/plugins/uniform/themes/default/css/uniform.default.css" />
+    <link rel="stylesheet" href="assets/plugins/inputlimiter/jquery.inputlimiter.1.0.css" />
+    <link rel="stylesheet" href="assets/plugins/chosen/chosen.min.css" />
+    <link rel="stylesheet" href="assets/plugins/colorpicker/css/colorpicker.css" />
+    <link rel="stylesheet" href="assets/plugins/tagsinput/jquery.tagsinput.css" />
+    <link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker-bs3.css" />
+    <link rel="stylesheet" href="assets/plugins/datepicker/css/datepicker.css" />
+    <link rel="stylesheet" href="assets/plugins/timepicker/css/bootstrap-timepicker.min.css" />
+    <link rel="stylesheet" href="assets/plugins/switch/static/stylesheets/bootstrap-switch.css" />
+   
+    <!-- PAGE LEVEL STYLES -->
+<link rel="stylesheet" href="assets/css/bootstrap-fileupload.min.css" />
+<!-- END PAGE LEVEL  STYLES -->
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <!-- CSS only -->
+ <!-- PAGE LEVEL STYLES -->
+ <link rel="stylesheet" href="assets/plugins/validationengine/css/validationEngine.jquery.css" />
+ <!-- END PAGE LEVEL  STYLES -->
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/datatables.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/> 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css"/> 
+
+</head>
+
+    <!-- END HEAD -->
+
+    <!-- BEGIN BODY -->
+<body class="padTop53" >
+
+    <!-- MAIN WRAPPER -->
+    <div id="wrap" >
+    @include('nav.navBar')
+    @yield('content')
 
     
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="dist/style.css">
-  <!-- Google Font: Source Sans Pro -->
-  <!-- DataTables -->
-  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    {{-- <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+  <!--**********************************
+         Support ticket button start
+      ***********************************-->
 
- 
-<body style="background-image:linear-gradient(#e9eff7, #ffff">
-       
+      <!--**********************************
+         Support ticket button end
+      ***********************************-->
 
-    <div id="app">
-
-
-          
-         
-      </div>
-
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm"  style="background-color:#27AAE1">
-            <div class="container">
-                {{-- <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="dist/img/shopuplogo-01.png" alt="User Avatar" class="img-size-50 mr- img-circl">
-                </a> --}}
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                      
-                        @guest
-                            {{-- @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif --}}
-                           
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="user-guid">{{ __('User Guide') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="#">{{ __('message.about') }}</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="contact">{{ __('message.contact') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="{{ route('register') }}">{{ __('message.register') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="{{ route('login') }}">{{ __('login') }}</a>
-                            </li>
-                            @endif
-                          
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" data-toggle="dropdown" href="#">
-                          
-                                    <p>{{__('message.language')}}</p>
-
-                                  
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                                  {{-- <span class="dropdown-item dropdown-header">15 Notifications</span> --}}
-                                  <div class="dropdown-divider"></div>
-                                  <a href="en" class="dropdown-item">
-                                   English
-                                    {{-- <span class="float-right text-muted text-sm">3 mins</span> --}}
-                                  </a>
-                                  <div class="dropdown-divider"></div>
-                                  <a href="sw" class="dropdown-item">
-                                  Swahili
-                                    {{-- <span class="float-right text-muted text-sm">12 hours</span> --}}
-                                  </a>
-                                  <div class="dropdown-divider"></div>
-                                 
-                        
-                                  {{-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> --}}
-                                </div>
-                              </li>
-                       
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <div style="width: 100%; height:10px; background-color:#e45909">
-
-          
-         
-        </div>
-        <main class="py-4">
-            @yield('content')
-            
-        </main>
-
-        <footer id="footer" class="footer bg-overlay">
-            <div class="footer-main">
-              <div class="container">
-                <div class="row justify-content-between">
-                  <div class="col-lg-4 col-md-6 footer-widget footer-about">
-                    <h3 class="widget-title">About Us</h3>
-                    <img loading="lazy" width="100px" class="footer-logo" src="dist/img/shotram.png" alt="Constra">
-                    <p>We are here to make you great. Great your Business with us.</p>
-                    <div class="footer-social">
-                      <ul>
-                        <li><a href="#" aria-label="Facebook"><i
-                              class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#" aria-label="Instagram"><i
-                              class="fab fa-instagram"></i></a></li>
-                        <li><a href="#" aria-label="Github"><i class="fab fa-github"></i></a></li>
-                      </ul>
-                    </div><!-- Footer social end -->
-                  </div><!-- Col end -->
-        
-                  <div class="col-lg-4 col-md-6 footer-widget mt-5 mt-md-0">
-                    <h3 class="widget-title">Working Hours</h3>
-                    <div class="working-hours">
-                      We work 7 days a week, every day excluding major holidays. Contact us if you have an emergency, with our
-                      Hotline and Contact form.
-                      <br><br> Monday - Friday: <span class="text-right">10:00 - 16:00 </span>
-                      <br> Saturday: <span class="text-right">12:00 - 15:00</span>
-                      <br> Sunday and holidays: <span class="text-right">09:00 - 12:00</span>
-                    </div>
-                  </div><!-- Col end -->
-        
-                  <div class="col-lg-3 col-md-6 mt-5 mt-lg-0 footer-widget">
-                    <h3 class="widget-title">CONTACTS</h3>
-                    <ul class="list-arrow">
-                      <li><a href="tel:+255782776467">+255 782  776 467</a></li>
-                      <li><a href="mailto:info@shotram.com">info@shotram.com</a></li>
-                    </ul>
-                  </div><!-- Col end -->
-                </div><!-- Row end -->
-              </div><!-- Container end -->
-            </div><!-- Footer main end -->
-        
-            <div class="copyright">
-              <div class="container">
-                <div class="row align-items-center">
-                  <div class="col-md-6">
-                    <div class="copyright-info text-center text-md-left">
-                      <span>Copyright &copy; <script>
-                          document.write(new Date().getFullYear())
-                        </script>, All Right &amp; Reserved by <a href="https://shotram.com">Shotram</a></span>
-                    </div>
-                  </div>
-        
-                  <div class="col-md-6">
-                    <div class="footer-menu text-center text-md-right">
-                      <ul class="list-unstyled">
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Our people</a></li>
-                        <li><a href="#">Faq</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Pricing</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div><!-- Row end -->
-        
-                <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top position-fixed">
-                  <button class="btn btn-primary" title="Back to Top">
-                    <i class="fa fa-angle-double-up"></i>
-                  </button>
-                </div>
-        
-              </div><!-- Container end -->
-            </div><!-- Copyright end -->
-          </footer><!-- Footer end -->
-        
-        
     </div>
-    <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
-<!-- REQUIRED SCRIPTS -->
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
-<!-- DataTables -->
-<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <!--END MAIN WRAPPER -->
 
-<!-- OPTIONAL SCRIPTS -->
-<script src="dist/js/demo.js"></script>
+    <!-- FOOTER -->
+    <div id="footer">
+        <p>&copy;  binarytheme &nbsp;2014 &nbsp;</p>
+    </div>
+    <!--END FOOTER -->
 
-<!-- PAGE PLUGINS -->
-<!-- jQuery Mapael -->
-<script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="plugins/raphael/raphael.min.js"></script>
-<script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
-<!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
 
-<!-- PAGE SCRIPTS -->
-<script src="dist/js/pages/dashboard2.js"></script>
-<script src="dist/script.js"></script>
+    <!-- GLOBAL SCRIPTS -->
+    <script src="assets/plugins/jquery-2.0.3.min.js"></script>
+     <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <!-- END GLOBAL SCRIPTS -->
+        <!-- PAGE LEVEL SCRIPTS -->
+    <script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
 
-<script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true,
-        "autoWidth": false,
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/datatables.min.js"></script>
+
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/plugins/uniform/jquery.uniform.min.js"></script>
+<script src="assets/plugins/inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
+<script src="assets/plugins/chosen/chosen.jquery.min.js"></script>
+<script src="assets/plugins/colorpicker/js/bootstrap-colorpicker.js"></script>
+<script src="assets/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+<script src="assets/plugins/validVal/js/jquery.validVal.min.js"></script>
+<script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="assets/plugins/daterangepicker/moment.min.js"></script>
+<script src="assets/plugins/datepicker/js/bootstrap-datepicker.js"></script>
+<script src="assets/plugins/timepicker/js/bootstrap-timepicker.min.js"></script>
+<script src="assets/plugins/switch/static/js/bootstrap-switch.min.js"></script>
+<script src="assets/plugins/jquery.dualListbox-1.3/jquery.dualListBox-1.3.min.js"></script>
+<script src="assets/plugins/autosize/jquery.autosize.min.js"></script>
+<script src="assets/plugins/jasny/js/bootstrap-inputmask.js"></script>
+      <script src="assets/js/formsInit.js"></script>
+
+         <!-- PAGE LEVEL SCRIPTS -->
+    <script src="assets/plugins/jasny/js/bootstrap-fileupload.js"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+
+       <!-- PAGE LEVEL SCRIPTS -->
+
+       <script src="assets/plugins/validationengine/js/jquery.validationEngine.js"></script>
+       <script src="assets/plugins/validationengine/js/languages/jquery.validationEngine-en.js"></script>
+       <script src="assets/plugins/jquery-validation-1.11.1/dist/jquery.validate.min.js"></script>
+       <script src="assets/js/validationInit.js"></script>
+       <script>
+           $(function () { formValidation(); });
+           </script>
+        <!--END PAGE LEVEL SCRIPTS -->
+        
+       <script>
+           $(function () { formInit(); });
+       </script>
+       
+     <script>
+         $(document).ready(function () {
+           
+             $('#dataTables-example').DataTable({
+          dom: 'Bfrtip',
+      buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print'
+      ]
       });
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });
-  </script>
+         });
+       
+    </script>
+     <!-- END PAGE LEVEL SCRIPTS -->
 </body>
+
+    <!-- END BODY -->
 </html>

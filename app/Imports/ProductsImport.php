@@ -38,6 +38,7 @@ class ProductsImport implements ToModel,WithStartRow
         'sold_price' => $row[9],
         'expire' => \Carbon\Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[10])),
         'location' => $row[11],
+        'isTaxable' => $row[12],
       
         ]);
     }

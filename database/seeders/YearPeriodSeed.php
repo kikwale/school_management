@@ -46,9 +46,9 @@ class YearPeriodSeed extends Seeder
               
             ];       
 
-            foreach($userInputs as $userInput){
-                YearPeriod::create($userInput); 
-            }
+            // foreach($userInputs as $userInput){
+            //     YearPeriod::create($userInput); 
+            // }
     }
 
 }

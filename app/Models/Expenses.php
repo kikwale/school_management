@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Expenses extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'schools_id',
+        'date',
+        'amount',
+        'description',
+    ];
 }

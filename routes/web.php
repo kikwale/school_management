@@ -18,9 +18,12 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return redirect()->to('/login');
+    return view('welcome');
 });
 
+Route::get('/registration', function () {
+  return view('auth.register');
+});
 
 Route::get('/user-guid', function() {
   return view('user_guid');
@@ -34,150 +37,186 @@ Route::get('/contact', function () {
 // Admin
 
 
+// Route::group(['middleware'=>'auth'], function () {
+//   Route::get('/super-admin', 'RedirectController@superAdmin')->name('super_admin.redirect');
+
+//   //Staffs
+//   Route::get('/admin-teaching-staffs', 'TeachersController@adminTeachingStaffs')->name('admin.teaching-staffs');
+
+//   Route::post('/saveTrader', 'HomeController@saveTrader');
+//   Route::get('/adminUsers', 'HomeController@adminUsers');
+//   Route::get('/admin_register_shop','HomeController@admin_register_shop');
+//   Route::post('/admin_save_shop','HomeController@admin_save_shop');
+//   Route::get('/admin_shops','HomeController@admin_shops');
+// });
+
+// Admin
+
+
 Route::group(['middleware'=>'auth'], function () {
-  Route::any('/adminUserForm', 'HomeController@showForm');
-  Route::post('/saveTrader', 'HomeController@saveTrader');
-  Route::get('/adminUsers', 'HomeController@adminUsers');
-  Route::get('/admin_register_shop','HomeController@admin_register_shop');
-  Route::post('/admin_save_shop','HomeController@admin_save_shop');
-  Route::get('/admin_shops','HomeController@admin_shops');
-});
+  Route::get('/admin', 'RedirectController@admin')->name('admin.redirect');
 
-
-
-// Shop Owner
-Route::group(['middleware'=>'auth'], function () {
-
-  Route::get('/owner_shop','MadukaController@owner_shop');
-  Route::get('/shop_worker','MadukaController@shop_worker');
-  Route::post('/create_worker','MadukaController@create_worker');
-  Route::get('/owner_add_jumla_product','MadukaController@owner_add_jumla_product');
-  Route::post('/saveJumlaProduct','MadukaController@saveJumlaProduct');
-  Route::get('/owner_add_rejareja_product','MadukaController@owner_add_rejareja_product');
-  Route::post('/saveRejarejaProduct','MadukaController@saveRejarejaProduct');
-  Route::get('/owner_view_jumla_product','ProductController@owner_view_jumla_product');
-  Route::get('/owner_view_rejareja_product','ProductController@owner_view_rejareja_product');
-  Route::post('/owner_save_shop','HomeController@ownerSaveShop');
-  Route::get('/owner-sold-product','ProductController@ownerSales')->name('owner.sold-products');
-  Route::get('/owner-receipt','ReceiptController@ownerReceipt')->name('owner.owner-receipt');
-  Route::post('/annual-receipt-form','ReceiptController@annualReceiptForm')->name('owner.annual-receipt');
-  Route::post('/owner-annual-receipt-data','ReceiptController@annualReceiptData')->name('owner.annual-receipt-data');
-  Route::post('/owner-monthly-receipt','ReceiptController@ownerMonthlyReceipt')->name('owner.monthly-receipt');
-  Route::post('/owner-monthly-receipt-form-search','ReceiptController@ownerMonthlyReceiptFormSearch')->name('owner.monthly-receipt-form-search');
-  Route::post('/owner-daily-receipt','ReceiptController@ownerDailyReceipt')->name('owner.owner-daily-receipt');
-  Route::post('/owner-daily-receipt-form-search','ReceiptController@ownerDailyReceiptFormSearch')->name('owner.daily-receipt-form-search');
-  Route::get('/owner-stock','ProductController@ownerStock')->name('owner.stock');
-  Route::get('/owner-expired-products','ProductController@ownerExpiredProducts')->name('owner.expired-products');
-  Route::get('/owner-expenses','ProfitsController@ownerExpenses')->name('owner.expenses');
-  Route::get('/owner-net-profit','ProfitsController@ownerNetProfit')->name('owner.net-profit');
-  Route::post('/ownerNetProfitForm','ProfitsController@ownerNetProfitForm')->name('owner.ownerNetProfitForm');
-  Route::get('/owner-money','SettingController@ownerMoney')->name('owner.owner-money');
-  Route::get('/owner-incoming-order','OrderController@ownerIncomingOrder')->name('owner.incoming-order');
-  Route::get('/owner-delivered-order','OrderController@ownerDeliveredorder')->name('owner.delivered-order');
-  Route::get('/owner-placed-order','OrderController@ownerPlacedOrder')->name('owner.placed-order');
-     
-  Route::post('/owner-product-annual-sold','ProductController@ownerProductAnnualSold')->name('owner.product-annual-sold');
-  Route::post('/owner-monthly-product-sold','ProductController@ownerMonthlyProductSold')->name('owner.monthly-product-sold');
-  Route::post('/owner-daily-product-sold','ProductController@ownerDailyProductSold')->name('owner.daily-product-sold');
-  Route::get('/owner-edit-employee','HomeController@ownerEditEmployee')->name('owner.edit-employee');
-  Route::post('/owner-save-edited-employee','HomeController@ownerSaveEditedEmployee')->name('owner.save-edited-employee');
-  Route::get('/owner-delete-employee','HomeController@ownerDeleteEmployee')->name('owner.delete-employee');
-  Route::get('/owner-change-pwd','HomeController@ownerChangePwd')->name('owner.change-pwd');
-  Route::post('/owner-save-newPwd','HomeController@ownerSaveNewPwd')->name('owner.save-newPwd');
-  Route::get('/owner-expenditure','ExpenditureController@index')->name('owner.expenditure');
-  Route::post('/owner-expenditure','ExpenditureController@saveExpenditure')->name('save-expenditure');
-  Route::get('/Loan-from','LoanController@ownerLoanFrom')->name('owner.Loan-from');
-  Route::get('/Loan-to','LoanController@ownerLoanTo')->name('owner.Loan-to');
-  Route::get('/payments','PaymentController@index')->name('owner.payments');
-  Route::post('/payroll','PayrollController@index')->name('owner.payroll');
-  Route::post('/owner-loan-from-modal','LoanController@ownerLoanFromModal')->name('owner.loan-from-modal');
-  Route::post('/owner-loan-return-modal','LoanController@ownerLoanReturnModal')->name('owner.loan-return-modal');
-  Route::post('/owner-loan-to-modal','LoanController@ownerLoanToModal')->name('owner.loan-to-modal');
-  Route::get('/loan-to-info',function(){
-    return view('owner.loan.loan_to_info');
-  })->name('owner.loan-to-info');
-  Route::post('/owner-employee-loan-return','LoanController@ownerEmployeeLoanReturn')->name('owner.employee-loan-return');
-  Route::post('/owner-employee-salary','PaymentController@ownerEmployeeSalary')->name('owner.employee-salary');
-  Route::get('/owner-monthly-payroll','PayrollController@index')->name('owner.month_payroll');
-  Route::get('/owner-allowances','AllowanceController@index')->name('owner.allowance');
-  Route::get('/assign-allowance','AllowanceController@assignAllowance')->name('assign-allowance');
-  Route::post('/owner-assign-allowance','AllowanceController@ownerAssignAllowance')->name('owner.assign-allowance');
-  Route::post('/owner-monthly-payroll','PayrollController@ownerMonthlyPayroll')->name('owner.monthly-payroll');
+  //Staffs
+  Route::get('/admin-teaching-staffs', 'TeachersController@adminTeachingStaffs')->name('admin.teaching-staffs');
+  Route::post('/admin-save-teacher', 'TeachersController@adminSaveTeacher')->name('admin.save-teacher');
+  Route::post('/admin-edit-teacher', 'TeachersController@adminEditTeacher')->name('admin.edit-teacher');
+  Route::post('/admin-delete-teacher', 'TeachersController@adminDeleteTeacher')->name('admin.delete-teacher');
+  //Other Staffs
+  Route::get('/admin-non-teaching-staffs', 'NonTeachersController@adminNonTeachingStaffs')->name('admin.non-teaching-staffs');
+  Route::post('/admin-save-non-teacher', 'NonTeachersController@adminSaveNonTeacher')->name('admin.save-non-teacher');
+  Route::post('/admin-edit-non-teacher', 'NonTeachersController@adminEditNonTeacher')->name('admin.edit-non-teacher');
+  Route::post('/admin-delete-non-teacher', 'NonTeachersController@adminDeleteNonTeacher')->name('admin.delete-non-teacher');
+  //create Classes
+  Route::get('/admin-create-classes', 'ClassController@adminCreateClasses')->name('admin.create-classes');
+  Route::post('/admin-save-class', 'ClassController@adminSaveClass')->name('admin.save-class');
+  Route::post('/admin-edit-class', 'ClassController@adminEditClass')->name('admin.edit-class');
+  Route::post('/admin-delete-class', 'ClassController@adminDeleteClass')->name('admin.delete-class');
+  //create terms
+  Route::get('/admin-create-terms', 'TermsController@adminCreateTerms')->name('admin.create-terms');
+  Route::post('/admin-save-term', 'TermsController@adminSaveTerm')->name('admin.save-term');
+  Route::post('/admin-edit-term', 'TermsController@adminEditTerm')->name('admin.edit-term');
+  Route::post('/admin-delete-term', 'TermsController@adminDeleteTerm')->name('admin.delete-term');
   
-  
-
+  //create Streams/Combinations
+  Route::get('/admin-create-streams-combs', 'StreamCombController@adminCreateStreamsCombs')->name('admin.create-streams-combs');
+  Route::post('/admin-save-streams-comb', 'StreamCombController@adminSaveStreamsComb')->name('admin.save-streams-comb');
+  Route::post('/admin-edit-streams-comb', 'StreamCombController@adminEditStreamsComb')->name('admin.edit-streams-comb');
+  Route::post('/admin-delete-streams-comb', 'StreamCombController@adminDeleteStreamsComb')->name('admin.delete-streams-comb');
   
 });
 
 
 
 
-//Seller Routes
+
+
+
+//manager Routes
 
 Route::group(['middleware'=>'auth'], function () {
   
+Route::get('/manager', 'RedirectController@manager')->name('manager.redirect');
+Route::post('/save-school','SchoolController@saveSchool')->name('manager.save-school');
+Route::get('/school','SchoolController@index')->name('manager.school-index');
+Route::get('/mteachers','TeachersController@mteachers')->name('manager.teachers');
+Route::get('/home-dashboard','SchoolController@homeDashboard')->name('manager.home-dashboard');
+Route::post('/msaveTeacher','TeachersController@msaveTeacher')->name('manager.saveTeacher');
+Route::post('/meditTeacher','TeachersController@meditTeacher')->name('manager.editTeacher');
+Route::post('/mdelete-teacher','TeachersController@mdeleteTeacher')->name('manager.delete-teacher');
+Route::get('/mnon-teachers','NonTeachersController@mNonTeachers')->name('manager.non-teachers');
+Route::post('/msaveNonTeacher','NonTeachersController@msaveNonTeacher')->name('manager.msaveNonTeacher');
+Route::post('/medit-non-teacher','NonTeachersController@meditNonTeacher')->name('manager.edit-non-teacher');
+Route::post('/mdelete-non-teacher','NonTeachersController@mdeleteNonTeacher')->name('manager.delete-non-teacher');
 
-Route::post('/seller-import-products','ImportingController@sellerImportProducts')->name('seller.import-products');
-Route::post('/rejarejaForm','ProductController@rejarejaForm')->name('seller.rejarejaForm');
-Route::post('/jumlaForm','ProductController@jumlaForm')->name('seller.jumlaForm');
-Route::get('/seller_selling_product','ProductController@seller_selling_product')->name('seller.selling_product');
-Route::get('/seller_today_sales','ProductController@seller_today_sales')->name('seller.today_sales');
-Route::get('/seller_add_jumla_product','ProductController@seller_add_jumla_product')->name('seller.add_jumla_product');
-Route::post('/seller_saveJumlaProduct','ProductController@seller_saveJumlaProduct')->name('seller.saveJumlaProduct');
-Route::get('/seller_view_jumla_product','ProductController@seller_view_jumla_product')->name('seller.view_jumla_product');
-Route::get('/seller-add-rejareja-product','ProductController@sellerAddRejarejaProduct')->name('seller.add_rejareja_product');
-Route::post('/seller_saveRejarejaProduct','ProductController@seller_saveRejarejaProduct')->name('seller.saveRejarejaProduct');
-Route::get('/seller_view_rejareja_product','ProductController@seller_view_rejareja_product')->name('seller.view_rejareja_product');
-Route::get('/seller-finished-product','ProductController@sellerFinishedProduct')->name('seller.finished_product');
-Route::get('/seller-store','ProductController@sellerStore')->name('seller.store');
-Route::get('/seller_shop_workers','HomeController@seller_shop_workers')->name('seller.shop_workers');
-Route::get('/seller-receipt-data','ReceiptController@showReceiptData')->name('seller.receipt-data');
-Route::get('/seller-print-receipt','ReceiptController@printReceipt')->name('seller.print-receipt');
-Route::get('/seller_printed_receipt','ReceiptController@printedReceipt')->name('seller.printed-receipt');
-Route::get('/seller-sold-product','ProductController@soldProducts')->name('seller.sold-product');
-Route::post('/seller-annual-product-sold','ProductController@soldProductsYear')->name('seller.annual-product-sold');
-Route::post('/seller-monthly-product-sold','ProductController@soldProductsMonth')->name('seller.monthly-product-sold');
-Route::post('/seller-daily-product-sold','ProductController@soldProductsDay')->name('seller.daily-product-sold');
-Route::get('/seller_expired_product','ProductController@expiredProducts')->name('seller.expired_product');
-Route::get('/seller-place-order','OrderController@sellerPlaceOrder')->name('seller.place-order');
-Route::post('/placeOrder','OrderController@sellerPutOrder')->name('seller.placeOrder');
-Route::get('/seller-incoming-order','OrderController@sellerIncomingOrder')->name('seller.incoming-order');
-Route::get('/seller-delivered-order','OrderController@sellerDeliveredorder')->name('seller.delivered-order');
-Route::get('/seller-placed-order','OrderController@sellerPlacedOrder')->name('seller.placed-order');
-Route::get('/seller-accept-order','OrderController@sellerAcceptOrder')->name('seller.accept-order');
-Route::get('/seller-reject-order','OrderController@sellerRejectOrder')->name('seller.reject-order');
-Route::get('/seller-confirm-delivery','OrderController@sellerConfirmDelivery')->name('seller.confirm-delivery');
-Route::get('/seller-change-pwd','HomeController@sellerChangePwd')->name('seller.change-pwd');
-Route::post('/seller-save-newPwd','HomeController@sellerSaveNewPwd')->name('seller.save-newPwd');
-Route::get('/seller-accept-expired','ProductController@sellerAcceptExpired')->name('seller.accept-expired');
-Route::post('/add-product-form','ProductController@addProduct')->name('seller.product-form');
-Route::get('/seller-return-product','ReturnController@returnProduct')->name('seller.return-product');
-Route::get('/seller-show-product-sold-year','ProductController@sellerShowProducctsSoldYear')->name('seller.show-product-sold-year');
-Route::get('/seller-show-product-sold-month','ProductController@sellerShowProducctsSoldMonth')->name('seller.show-product-sold-month');
-Route::get('/seller-show-product-sold-day','ProductController@sellerShowProducctsSoldDay')->name('seller.show-product-sold-day');
-Route::get('/seller-returned-products','ReturnController@sellerShowReturnedProducts')->name('seller.returned-products');
-Route::get('/seller_update_product','ProductController@sellerUpdateProduct')->name('seller.update-product');
-Route::post('/seller-update-product','ProductController@sellerUpdateProductSave')->name('seller.update-product-save');
-Route::get('/seller-delete-product','ProductController@sellerDeleteProduct')->name('seller.delete-product');
-Route::get('/seller-invoice','InvoiceController@index')->name('seller.invoice');
-Route::get('/seller-new-invoice','InvoiceController@newInvoice')->name('seller.new-invoice');
+//parents
+Route::get('/mparents','ParentsController@mparents')->name('manager.parents');
+Route::post('/msaveParent','ParentsController@msaveParent')->name('manager.saveParent');
+Route::post('/medit-parent','ParentsController@meditParent')->name('manager.edit-parent');
+Route::post('/mdelete-parent','ParentsController@mdeleteParent')->name('manager.delete-parent');
+
+//Students 
+Route::get('/mstudents','StudentsController@mstudents')->name('manager.students');
+Route::post('/msaveStudent','StudentsController@msaveStudent')->name('manager.saveStudent');
+Route::post('/medit-student','StudentsController@meditStudent')->name('manager.edit-student');
+Route::post('/mdelete-student','StudentsController@mdeleteStudent')->name('manager.delete-student');
 
 
+//Librarian 
+Route::get('/mLibrarians','LibraryController@mLibrarian')->name('manager.librarian');
+Route::post('/msaveLibrarian','LibraryController@msaveLibrarian')->name('manager.saveLibrarian');
+Route::post('/meditLibrarian','LibraryController@meditLibrarian')->name('manager.edit-librarian');
+Route::post('/mDeleteLibrarian','LibraryController@mdeleteLibrarian')->name('manager.delete-librarian');
+
+//Classes 
+Route::get('/mClasses','ClassController@mClasses')->name('manager.classes');
+Route::post('/msaveClass','ClassController@msaveClass')->name('manager.saveClass');
+Route::post('/meditClass','ClassController@meditClass')->name('manager.edit-Class');
+Route::post('/mDeleteClass','ClassController@mdeleteClass')->name('manager.delete-Class');
+
+//Subjects
+Route::get('/mSubjects','SubjectsController@mSubjects')->name('manager.subjects');
+Route::post('/msaveSubject','SubjectsController@msaveSubject')->name('manager.saveSubject');
+Route::post('/meditSubject','SubjectsController@meditSubject')->name('manager.editSubject');
+Route::post('/mDeleteSubject','SubjectsController@mDeleteSubject')->name('manager.deleteSubject');
+
+// Expenses
+Route::get('/mExpenses','ExpensesController@mexpenses')->name('manager.expenses');
+Route::post('/msaveExpenses','ExpensesController@msaveExpenses')->name('manager.saveExpenses');
+Route::post('/meditExpenses','ExpensesController@meditExpenses')->name('manager.edit-expenses');
+Route::post('/mdeleteExpenses','ExpensesController@mdeleteExpenses')->name('manager.delete-expenses');
+
+// setting-student-class
+Route::get('/msetting-student-class','StudentsController@msettingStudentClass')->name('manager.setting-student-class');
+Route::post('/msaveSettingStudentClass','StudentsController@msaveSettingStudentClass')->name('manager.savesettingStudentClass');
+Route::post('/meditSettingStudentClass','StudentsController@meditSettingStudentClass')->name('manager.editsettingStudentClass');
+Route::post('/mdeleteSettingStudentClass','StudentsController@mdeleteSettingStudentClass')->name('manager.deletesettingStudentClass');
+Route::post('/mupgradeSettingStudentClass','StudentsController@mupgradeSettingStudentClass')->name('manager.upgradeSettingStudentClass');
+
+// setting-teacher-class
+Route::get('/msetting-teacher-class','TeachersController@msettingTeacherClass')->name('manager.setting-teacher-class');
+Route::post('/msaveSetting-teacher-class','TeachersController@msaveSettingTeacherClass')->name('manager.saveSetting-teacher-class');
+Route::post('/meditSetting-teacher-class','TeachersController@meditSettingTeacherClass')->name('manager.editSetting-teacher-class');
+Route::post('/mdeleteSetting-teacher-class','TeachersController@mdeleteSettingTeacherClass')->name('manager.deleteSetting-teacher-class');
+Route::get('/mfilter-subjects','TeachersController@mfilterSubjects')->name('manager.filter-subjects');
 
 
+//setting-class-subjects
+Route::get('/msetting-subjects-class','SubjectsController@msettingSubjectsClass')->name('manager.setting-subjects-class');
+Route::post('/msave-setting-subjects-class','SubjectsController@msaveSettingSubjectsClass')->name('manager.save-setting-subjects-class');
+Route::post('/medit-setting-subjects-class','SubjectsController@meditSettingSubjectsClass')->name('manager.edit-setting-subjects-class');
+Route::post('/mdelete-setting-subjects-class','SubjectsController@mDeleteSettingSubjectsClass')->name('manager.delete-setting-subjects-class');
 
-Route::get('/seller-calendar', function() {
- return view('seller.calendar');
+//setting-contributions
+Route::get('/msetting-contributions','ContributionsController@msettingContributions')->name('manager.setting-contributions');
+Route::post('/msave-setting-contributions','ContributionsController@msaveSettingContributions')->name('manager.save-setting-contributions');
+Route::post('/medit-setting-contributions','ContributionsController@meditSettingContributions')->name('manager.edit-setting-contributions');
+Route::post('/mdelete-setting-contributions','ContributionsController@mDeleteSettingContributions')->name('manager.delete-setting-contributions');
+Route::get('/mfilter-students','ContributionsController@mfilterStudents')->name('manager.filter-students');
+
+//setting-fees
+Route::get('/msetting-fees','FeesController@msettingFees')->name('manager.setting-fees');
+Route::post('/msave-setting-fees','FeesController@msaveSettingFees')->name('manager.save-setting-fees');
+Route::post('/medit-setting-fees','FeesController@meditSettingFees')->name('manager.edit-setting-fees');
+Route::post('/mdelete-setting-fees','FeesController@mDeleteSettingFees')->name('manager.delete-setting-fees');
+Route::get('/mfilter-fee-students','FeesController@mfilterStudents')->name('manager.filter-fee-students');
+
+//School Fees
+Route::get('/mschool-record-fees','FeesController@index')->name('manager.school-fees');
+Route::post('/msave-school-fees','FeesController@msaveSchoolFees')->name('manager.save-school-fees');
+Route::post('/medit-school-fees','FeesController@meditSchoolFees')->name('manager.edit-school-fees');
+Route::post('/mdelete-school-fees','FeesController@mDeleteSchoolFees')->name('manager.delete-school-fees');
+
+//School Contributions
+Route::get('/mschool-record-contributions','ContributionsController@index')->name('manager.school-contributions');
+Route::post('/msave-school-contributions','ContributionsController@msaveSchoolContributions')->name('manager.save-school-contributions');
+Route::post('/medit-school-contributions','ContributionsController@meditSchoolContributions')->name('manager.edit-school-contributions');
+Route::post('/mdelete-school-contributions','ContributionsController@mDeleteSchoolContributions')->name('manager.delete-school-contributions');
+
+// Fees
+Route::get('/mfees','FeesController@mfees')->name('manager.fees');
+Route::post('/msave-fees','FeesController@msaveFees')->name('manager.save-fees');
+Route::post('/medit-fees','FeesController@meditFees')->name('manager.edit-fees');
+Route::post('/mdelete-fees','FeesController@mDeleteFees')->name('manager.delete-fees');
+
+// contributions
+Route::get('/mcontributions','ContributionsController@mcontributions')->name('manager.contributions');
+Route::post('/msave-contributions','ContributionsController@msaveContributions')->name('manager.save-contributions');
+Route::post('/medit-contributions','ContributionsController@meditContributions')->name('manager.edit-contributions');
+Route::post('/mdelete-contributions','ContributionsController@mDeleteContributions')->name('manager.delete-contributions');
+// results
+Route::get('/mget-class-subjects','ResultsController@mgetClassSubjects')->name('manager.get-class-subjects');
+Route::get('/mget-list','ResultsController@mResultsList')->name('manager.get-list');
+Route::post('/mschool-record-results','ResultsController@index')->name('manager.school-record-results');
+Route::post('/msave-student-results','ResultsController@msaveStudentResults')->name('manager.save-student-results');
+Route::get('/medit-results','ResultsController@meditResults')->name('manager.edit-result');
+Route::post('/medit-student-results','ResultsController@meditStudentResults')->name('manager.edit-student-results');
+// Route::post('/mdelete-contributions','ResultsController@mDeleteContributions')->name('manager.delete-contributions');
+
+Route::get('/madmin','HomeController@schoolAdmin')->name('manager.admin');
+Route::post('/madmin-save','HomeController@schoolAdminSave')->name('manager.admin-save');
+
 });
 
- 
-Route::get('/seller-notify-order', 'OrderController@sellerNotifyOrder');
-
- Route::get('/seller-notify-expired', function(Request $request) {
-  return $request->all();
- });
-
-});
 
 
 
@@ -185,13 +224,12 @@ Route::get('/seller-notify-order', 'OrderController@sellerNotifyOrder');
 
 
 
-
-Auth::routes(['verify'=>true]);
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/{lang}', function($lang){
   App::setLocale($lang);
   Session::put('locale', $lang);
   return back();
 
-});
+})->name('app.lang');

@@ -25,8 +25,8 @@ class MoneySymbolSeed extends Seeder
               
             ];       
 
-            foreach($userInputs as $userInput){
-                Money::create($userInput);
-            }
+            // foreach($userInputs as $userInput){
+            //     Money::create($userInput);
+            // }
     }
 }
