@@ -19,9 +19,147 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class StudentsController extends Controller
 {
+    public function adminStudents(Request $request){
+        
+        $students = Student::where('students.schools_id',Session::get('school_id'))->get();
+       return view('admin.admissions.students')->with('data',$students);
+    }
+
+    public function adminSaveStudent(Request $request){
+      
+        DB::beginTransaction();
+          
+        try {
+ 
+         $validator = Validator::make($request->all(), [
+             'file' => 'mimes:png,jpg,jpeg|max:1024|dimensions:width=500,height=500',
+         ]);
+       
+         if ($validator->fails()) {
+             $error = "The file must not be greater than 1024kb/1M and file should be PNG,JPEG and JPG, Dimension of 500x500 ";
+             return redirect()->to('admin-students')->with('error',$error);
+         }
+         if($request->file()){
+             
+             $file = $request->file('file');
+             $fileName = strtoupper($request->RegNo).'.'.$request->file->extension();
+             $file_location = 'school'.'_'.Session::get('school_id').'_'.'user';
+            // $filePath = $request->file('file')->storeAs('school'.'_'.Session::get('school_id').'_'.'user', $fileName, 'public');
+             $file_path = $file->move($file_location,$fileName);
+             $student = new Student();
+             $student->schools_id = Session::get('school_id');
+             $student->fname = $request->fname;
+             $student->mname = $request->mname;
+             $student->lname = $request->lname;
+             $student->gender = $request->gender;
+             $student->entry_status = $request->entry_status;
+             $student->entry_date = $request->entry_date;
+             $student->physical_condition = $request->physical_condition;
+             $student->physical_parts = $request->physical_parts;
+             $student->health_problem = $request->health_problem;
+             $student->RegNo = $request->RegNo;
+             $student->photo = $file_path;
+             $student->save();
+             DB::commit();
+             return redirect()->to('admin-students')->with('success','Saved Successfuly..!');
+         } else{
+            $student = new Student();
+            $student->schools_id = Session::get('school_id');
+            $student->fname = $request->fname;
+            $student->mname = $request->mname;
+            $student->lname = $request->lname;
+            $student->gender = $request->gender;
+            $student->entry_status = $request->entry_status;
+            $student->entry_date = $request->entry_date;
+            $student->physical_condition = $request->physical_condition;
+            $student->physical_parts = $request->physical_parts;
+            $student->health_problem = $request->health_problem;
+            $student->RegNo = $request->RegNo;
+            $student->save();
+      
+            DB::commit();
+             return redirect()->to('admin-students')->with('success','Saved Successfuly..!');
+         }
+        } catch (\Throwable $th) {
+          
+         return redirect()->to('admin-students')->with('error','Error occured');
+        }
+    }
+
+    public function adminEditStudent(Request $request){
+
+        DB::beginTransaction();
+          
+        try {
+ 
+         $validator = Validator::make($request->all(), [
+             'file' => 'mimes:png,jpg,jpeg|max:1024|dimensions:width=500,height=500',
+         ]);
+       
+         if ($validator->fails()) {
+             $error = "The file must not be greater than 1024kb/1M and file should be PNG,JPEG and JPG, Dimension of 500x500";
+             return redirect()->to('admin-students')->with('error',$error);
+         }
+         if($request->file()){
+            if ($request->file_name != "") {
+             unlink($request->file_name);
+            }
+             $file = $request->file('file');
+             $fileName = strtoupper($request->RegNo).'.'.$request->file->extension();
+             $file_location = 'school'.'_'.Session::get('school_id').'_'.'user';
+            // $filePath = $request->file('file')->storeAs('school'.'_'.Session::get('school_id').'_'.'user', $fileName, 'public');
+             $file_path = $file->move($file_location,$fileName);
+        
+             $student = Student::where('id',$request->id)->where('schools_id',Session::get('school_id'))->first();
+             $student->fname = $request->fname;
+             $student->mname = $request->mname;
+             $student->lname = $request->lname;
+             $student->gender = $request->gender;
+             $student->entry_status = $request->entry_status;
+             $student->entry_date = $request->entry_date;
+             $student->physical_condition = $request->physical_condition;
+             $student->physical_parts = $request->physical_parts;
+             $student->health_problem = $request->health_problem;
+             $student->RegNo = $request->RegNo;
+             $student->photo = $file_path;
+             $student->save();
+             DB::commit();
+             return redirect()->to('admin-students')->with('success','Teacher Edited Successfuly..!');
+         } else{
+            $student = Student::where('schools_id',Session::get('school_id'))->where('id',$request->id)->first();
+            $student->fname = $request->fname;
+            $student->mname = $request->mname;
+            $student->lname = $request->lname;
+            $student->gender = $request->gender;
+            $student->entry_status = $request->entry_status;
+            $student->entry_date = $request->entry_date;
+            $student->physical_condition = $request->physical_condition;
+            $student->physical_parts = $request->physical_parts;
+            $student->health_problem = $request->health_problem;
+            $student->RegNo = $request->RegNo;
+            $student->save();
+            DB::commit();
+             return redirect()->to('admin-students')->with('success','Teacher Edited Successfuly..!');
+         }
+        } catch (\Throwable $th) {
+         return redirect()->to('admin-students')->with('error','Error occured');
+        }
+      
+    }
+
+    public function adminDeleteStudent(Request $request){
+        Student::where('id',$request->id)->delete();
+        if ($request->file_name != "") {
+            unlink($request->file_name);
+           }
+        return redirect()->to('admin-students')->with('success','Teacher Deleted Successfuly..!');
+    }
+
+
     public function mstudents(Request $request){
         $students = Student::where('students.schools_id',Session::get('school_id'))
         ->join('wazazis','students.parents_id','=','wazazis.id')

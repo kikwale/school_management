@@ -97,6 +97,7 @@ class TeachersController extends Controller
              return redirect()->to('admin-teaching-staffs')->with('success','Teacher saved Successfuly..!');
          }
         } catch (\Throwable $th) {
+         
          return redirect()->to('admin-teaching-staffs')->with('error','Error occured');
         }
     }

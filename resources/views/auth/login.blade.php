@@ -1,61 +1,52 @@
 @extends('layouts.home')
 @section('content')
     
-<div class="main-wrapper login-body" style="background-color: rgb(2, 9, 27)">
-    <div class="login-wrapper">
-    <div class="container">
-        
-    {{-- <img class="img-fluid logo-dark mb-2" src="assets/img/logo.png" alt="Logo"> --}}
-    <div class="loginbox">
-       
-    <div class="login-right">
-    <div class="login-right-wrap">
-        <marquee behavior="" direction="right" ><h1 style="color:  rgb(255, 38, 0)">SCHOOL MANAGER</h1></marquee>
-    <h1>Login</h1>
-    <p class="account-subtitle">Access to our school manager</p>
-    <form method="POST" action="login">
-        @csrf
-    <div class="form-group">
-    <label class="form-control-label">Email Address</label>
-    <input type="email" name="email" class="form-control">
+<div class="container">
+    <div class="text-center">
+        <img src="assets/img/logo.png"  alt=" Logo" height="200px;" width="200px;"/>
     </div>
-    <div class="form-group">
-    <label class="form-control-label">Password</label>
-    <div class="pass-group">
-    <input name="password" type="password" class="form-control pass-input">
-    <span class="fas fa-eye toggle-password"></span>
+    <div class="tab-content">
+        <div id="login" class="tab-pane active">
+            <form action="login" method="post" class="form-signin">
+                @csrf
+                <p class="text-muted text-center btn-block btn btn-primary btn-rect">
+                    Enter your username and password
+                </p>
+                <input type="text" name="email" placeholder="Username" class="form-control" />
+                <input type="password" name="password" placeholder="Password" class="form-control" />
+                <button class="btn text-muted text-center btn-danger" type="submit">Sign in</button>
+            </form>
+        </div>
+        <div id="forgot" class="tab-pane">
+            <form action="index.html" class="form-signin">
+                <p class="text-muted text-center btn-block btn btn-primary btn-rect">Enter your valid e-mail</p>
+                <input type="email"  required="required" placeholder="Your E-mail"  class="form-control" />
+                <br />
+                <button class="btn text-muted text-center btn-success" type="submit">Recover Password</button>
+            </form>
+        </div>
+        <div id="signup" class="tab-pane">
+            <form action="index.html" class="form-signin">
+                <p class="text-muted text-center btn-block btn btn-primary btn-rect">Please Fill Details To Register</p>
+                 <input type="text" placeholder="First Name" class="form-control" />
+                 <input type="text" placeholder="Last Name" class="form-control" />
+                <input type="text" placeholder="Username" class="form-control" />
+                <input type="email" placeholder="Your E-mail" class="form-control" />
+                <input type="password" placeholder="password" class="form-control" />
+                <input type="password" placeholder="Re type password" class="form-control" />
+                <button class="btn text-muted text-center btn-success" type="submit">Register</button>
+            </form>
+        </div>
     </div>
+    <div class="text-center">
+        <ul class="list-inline">
+            <li><a class="text-muted" href="#login" data-toggle="tab">Login</a></li>
+            <li><a class="text-muted" href="#forgot" data-toggle="tab">Forgot Password</a></li>
+            <li><a class="text-muted" href="#signup" data-toggle="tab">Signup</a></li>
+        </ul>
     </div>
-    <div class="form-group">
-    <div class="row">
-    <div class="col-6">
-    <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="cb1">
-    <label class="custom-control-label" for="cb1">Remember me</label>
-    </div>
-    </div>
-    <div class="col-6 text-end">
-    <a class="forgot-link" href="forgot-password">Forgot Password ?</a>
-    </div>
-    </div>
-    </div>
-    <button class="btn btn-lg btn-block btn- w-100 text-white" style="background-color: rgb(255, 38, 0)" type="submit">Login</button>
-    {{-- <div class="login-or">
-    <span class="or-line"></span>
-    <span class="span-or">or</span>
-    </div> --}}
-    
-    <div class="social-login mb-3">
-    {{-- <span>Login with</span> --}}
-    {{-- <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a><a href="#" class="google"><i class="fab fa-google"></i></a> --}}
-    </div>
-    
-    {{-- <div class="text-center dont-have">Don't have an account yet? <a href="register.html">Register</a></div> --}}
-    </form>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
+
+
+</div>
+
 @endsection

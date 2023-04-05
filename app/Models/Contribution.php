@@ -10,8 +10,7 @@ class Contribution extends Model
     use HasFactory;
     protected $fillable = [
         'schools_id',
-        'darasas_id',
-        'contribution_name',
-        'contribution_amount'
+        'name',
+        'amount'
     ];
 }

@@ -23,7 +23,7 @@ class CreateTeachersTable extends Migration
             $table->foreign('schools_id')->references('id')->on('schools')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->double('salary');
+            $table->double('salary')->nullable();
             $table->string('edu_level');
             $table->string('address');
             $table->string('national_id');

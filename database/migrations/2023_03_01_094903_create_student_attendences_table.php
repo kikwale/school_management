@@ -35,12 +35,12 @@ class CreateStudentAttendencesTable extends Migration
             $table->foreign('stream_or_combs_id')->references('id')->on('stream_or_combs')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->date('date');
+            $table->string('status')->default('present');
             $table->unsignedBigInteger('submited_by');
             $table->foreign('submited_by')->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->date('date');
-            $table->string('status')->default('present');
             $table->timestamps();
         });
     }

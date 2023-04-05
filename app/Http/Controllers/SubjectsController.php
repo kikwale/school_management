@@ -18,6 +18,56 @@ use Illuminate\Support\Facades\Log;
 
 class SubjectsController extends Controller
 {
+
+    public function adminCreateSubjects(){
+        $subjects = Subject::where('schools_id',Session::get('school_id'))->get();
+        return view('admin.creates.subjects')->with('data',$subjects);
+    }
+    public function adminSaveSubject(Request $request){
+
+        try {
+            DB::beginTransaction();
+            $input = $request->all();
+            $input['schools_id'] = Session::get('school_id');
+            Subject::create($input);
+            DB::commit();
+            return redirect()->to('admin-create-subjects')->with('success','Created Successfuly...!!');
+        } catch (\Throwable $th) {
+            return redirect()->to('admin-create-subjects')->with('error','Error occured');
+        }
+       
+    }
+
+    public function adminEditSubject(Request $request){
+
+        try {
+            DB::beginTransaction();
+            $subject = Subject::where('id',$request->id)->where('schools_id',Session::get('school_id'))->first();
+            $subject['name'] = $request['name'];
+            $subject['weight'] = $request['weight'];
+            $subject['description'] = $request['description'];
+            $subject->save();
+            DB::commit();
+            return redirect()->to('admin-create-subjects')->with('success','Edited Successfuly...!!');
+        } catch (\Throwable $th) {
+            return redirect()->to('admin-create-subjects')->with('error','Error occured');
+        }
+       
+    }
+
+    public function adminDeleteSubject(Request $request){
+
+        try {
+
+            Subject::where('id',$request->id)->where('schools_id',Session::get('school_id'))->delete();
+            return redirect()->to('admin-create-subjects')->with('success','Deleted Successfuly...!!');
+        } catch (\Throwable $th) {
+            return redirect()->to('admin-create-subjects')->with('error','Error occured');
+        }
+       
+    }
+
+
    public function mSubjects(Request $request){
     $subjects = Subject::where('schools_id',Session::get('school_id'))->get();
         return view('manager.subjects.index')->with('data',$subjects);

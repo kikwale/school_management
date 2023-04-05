@@ -19,6 +19,10 @@ class CreateStudentsResultSubmissionsTable extends Migration
             // $table->foreign('students_results_id')->references('id')->on('students_results')
             //     ->onUpdate('cascade')
             //     ->onDelete('cascade');
+            $table->unsignedBigInteger('students_results_id');
+            $table->foreign('students_results_id')->references('id')->on('students_results')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->unsignedBigInteger('schools_id');
             $table->foreign('schools_id')->references('id')->on('schools')
                 ->onUpdate('cascade')
@@ -43,6 +47,7 @@ class CreateStudentsResultSubmissionsTable extends Migration
             $table->foreign('stream_or_combs_id')->references('id')->on('stream_or_combs')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+          
             $table->double('mark');
             $table->unsignedBigInteger('submited_by');
             $table->foreign('submited_by')->references('id')->on('users')

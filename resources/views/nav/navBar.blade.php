@@ -271,7 +271,7 @@
                 </a>
                 <br />
                 <div class="media-body">
-                    <h5 class="media-heading"> Joe Romlin</h5>
+                    <h5 class="media-heading"> {{ Auth::user()->lname }}</h5>
                     <ul class="list-unstyled user-info">
                         
                         <li>
@@ -284,11 +284,10 @@
                 <br />
             </div>
 
-                @if (Auth::user()->role == 'Headmaster')
-                @include('nav.headmaster')
-                @endif
-                @if (Auth::user()->role == 'Accountant')
-                @include('nav.accountant')
+                @if (Auth::user()->role == 'Head Master' 
+                || Auth::user()->role == 'Normal Teacher'
+                || Auth::user()->role == "Accountant" )
+                @include('nav.teaching_staffs')
                 @endif
                 @if (Auth::user()->role == 'Admin')
                 @include('nav.admin')

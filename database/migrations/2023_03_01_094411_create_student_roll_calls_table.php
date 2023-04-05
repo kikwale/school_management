@@ -19,29 +19,19 @@ class CreateStudentRollCallsTable extends Migration
             $table->foreign('schools_id')->references('id')->on('schools')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('academic_years_id');
-            $table->foreign('academic_years_id')->references('id')->on('academic_years')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->unsignedBigInteger('darasas_id');
-            $table->foreign('darasas_id')->references('id')->on('darasas')
+            $table->unsignedBigInteger('rollcalls_id');
+            $table->foreign('rollcalls_id')->references('id')->on('rollcalls')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->unsignedBigInteger('students_id');
             $table->foreign('students_id')->references('id')->on('students')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('subjects_id');
-            $table->foreign('subjects_id')->references('id')->on('subjects')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->unsignedBigInteger('stream_or_combs_id');
-            $table->foreign('stream_or_combs_id')->references('id')->on('stream_or_combs')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->date('date');
-            $table->string('time_interval');
             $table->string('status')->default('present');
+            $table->unsignedBigInteger('submited_by');
+            $table->foreign('submited_by')->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

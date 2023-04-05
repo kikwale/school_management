@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AcademicYear;
 use App\Models\Admin;
 use App\Models\Maduka;
 use App\Models\Mauzo;
@@ -15,7 +16,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use App\Models\seller;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -47,15 +50,15 @@ class HomeController extends Controller
             Session::put('super_admin_id',Auth::id());
             return redirect()->to('super-admin');
              
-         } 
-         if (Auth::user()->role == 'Headmaster') {
+         }
+         if (Auth::user()->role == 'Head Master' || Auth::user()->role == 'Normal Teacher'
+         || Auth::user()->role == 'Accountant') {
              $data = User::all();
-             return view('headmaster.index')->with('data',$data);
+             $school = Teacher::where('users_id',Auth::id())->first();
+             Session::put('school_id',$school->schools_id);
+             return view('teaching_staffs.index')->with('data',$data);
          } 
-         if (Auth::user()->role == 'Accountant') {
-             $data = User::all();
-             return view('accountant.index')->with('data',$data);
-         } 
+         
          if (Auth::user()->role == 'Manager') {
 
              Session::put('manager_id',Auth::id());
@@ -141,8 +144,92 @@ class HomeController extends Controller
             return redirect()->to('madmin')->with('success','Admin saved Successfuly..!');
         }
        } catch (\Throwable $th) {
+        if (Str::contains($th->getMessage(),['Duplicate entry '])) {
+            return back()->with('error','Duplicate Entry');
+        }
         return redirect()->to('madmin')->with('error','Error occured');
        }
        
      }
+
+     public function adminYears(){
+        $data = AcademicYear::where('schools_id',Session::get('school_id'))->get();
+//return $data;
+     return view('admin.settings.year')->with('data',$data);
+     }
+
+      public function adminSaveYear(Request $request){
+       
+        try {
+            DB::beginTransaction();
+            if ($request->isCurrent == "on") {
+                AcademicYear::where('isCurrent',true)->where('schools_id',Session::get('school_id'))->update(['isCurrent'=>false]);
+                $new_year = new AcademicYear();
+                $new_year->schools_id = Session::get('school_id');
+                $new_year->year = $request->year;
+                $new_year->description = $request->description;
+                $new_year->isCurrent = true;
+                $new_year->save();
+                DB::commit();
+                return redirect()->to('admin-academic-years')->with('success','Created Successfuly...!!');
+          }else{
+                $new_year = new AcademicYear();
+                $new_year->schools_id = Session::get('school_id');
+                $new_year->year = $request->year;
+                $new_year->description = $request->description;
+                $new_year->isCurrent = false;
+                $new_year->save();
+                DB::commit();
+                return redirect()->to('admin-academic-years')->with('success','Created Successfuly...!!');
+          }
+        } catch (\Throwable $th) {
+            return redirect()->to('admin-academic-years')->with('error','Error occured');
+        }
+     
+}
+
+public function adminEditYear(Request $request){
+    
+    try {
+        DB::beginTransaction();
+        if ($request->isCurrent == "on") {
+            AcademicYear::where('isCurrent',true)->where('schools_id',Session::get('school_id'))->update(['isCurrent'=>false]);
+           $new_year = AcademicYear::where('id',$request->id)->where('schools_id',Session::get('school_id'))->first();
+       
+            $new_year->year = $request->year;
+            $new_year->description = $request->description;
+            $new_year->isCurrent = true;
+            $new_year->save();
+            DB::commit();
+            return redirect()->to('admin-academic-years')->with('success','Edited Successfuly...!!');
+      }else{
+            $new_year = AcademicYear::where('id',$request->id)->where('schools_id',Session::get('school_id'))->first();
+       
+            $new_year->year = $request->year;
+            $new_year->description = $request->description;
+            $new_year->isCurrent = false;
+            $new_year->save();
+            DB::commit();
+            return redirect()->to('admin-academic-years')->with('success','Edited Successfuly...!!');
+      }
+    } catch (\Throwable $th) {
+        return redirect()->to('admin-academic-years')->with('error','Error occured');
+    }
+ 
+}
+
+public function adminDeleteYear(Request $request){
+    
+    try {
+            DB::beginTransaction();
+            AcademicYear::where('id',$request->id)->where('schools_id',Session::get('school_id'))->delete();
+            DB::commit();
+            return redirect()->to('admin-academic-years')->with('success','Deleted Successfuly...!!');
+     
+    } catch (\Throwable $th) {
+        return redirect()->to('admin-academic-years')->with('error','Error occured');
+    }
+ 
+}
+
 }

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class AcademicYear extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'schools_id',
+        'year',
+        'description',
+        'isCurrent'
+    ];
 }

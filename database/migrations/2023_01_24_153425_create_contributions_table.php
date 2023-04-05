@@ -19,10 +19,6 @@ class CreateContributionsTable extends Migration
             $table->foreign('schools_id')->references('id')->on('schools')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('darasas_id');
-            $table->foreign('darasas_id')->references('id')->on('darasas')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
             $table->string('name');
             $table->double('amount');
             $table->text('description')->nullable();

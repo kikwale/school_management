@@ -24,8 +24,13 @@ class CreateStudentsResultsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->integer('year');
+            $table->string('title');
+            $table->string('results_type');
+            $table->unsignedBigInteger('terms_id');
+            $table->foreign('terms_id')->references('id')->on('terms')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->boolean('isOpen')->default(false);
-            $table->boolean('isCurrent')->default(true);
             $table->timestamps();
         });
     }

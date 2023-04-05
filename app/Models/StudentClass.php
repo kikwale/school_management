@@ -13,6 +13,6 @@ class StudentClass extends Model
         'schools_id',
         'darasas_id',
         'students_id',
-        'isCurrent'
+        'isCompleted'
     ];
 }
