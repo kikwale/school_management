@@ -71,10 +71,11 @@ class ClassController extends Controller
     }
 
     public function teacherClassMember(){
+       
        $current_year = AcademicYear::where('schools_id',Session::get('school_id'))->where('isCurrent',true)->first();
        $students = [];
        $mkondo = "";
-       $darasa = "";
+       $darasa = ""; 
        $classes = Darasa::where('schools_id',Session::get('school_id'))->get();
       
        $streams = StreamOrComb::where('schools_id',Session::get('school_id'))->get();

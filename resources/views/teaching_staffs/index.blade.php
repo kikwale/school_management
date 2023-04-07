@@ -7,7 +7,7 @@
 	<div class="inner" style="min-height: 700px;">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1> Admin Dashboard </h1>
+				<h1> {{ Auth::user()->role }} Dashboard </h1>
 			</div>
 		</div>
 		  <hr />
