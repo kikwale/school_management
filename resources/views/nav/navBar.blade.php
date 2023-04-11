@@ -1,7 +1,7 @@
   <!-- HEADER SECTION -->
-  <div id="top">
+  <div id="top" style="background-color: rgb(10, 110, 77);">
 
-    <nav class="navbar navbar-inverse navbar-fixed-top " style="padding-top: 10px;">
+    <nav class="navbar navbar-inverse navbar-fixed-top " style="padding-top: 10px;" >
         <a data-original-title="Show/Hide Menu" data-placement="bottom" data-tooltip="tooltip" class="accordion-toggle btn btn-primary btn-sm visible-xs" data-toggle="collapse" href="#menu" id="menu-toggle">
             <i class="icon-align-justify"></i>
         </a>
@@ -264,13 +264,13 @@
         ***********************************-->
     
         <!-- MENU SECTION -->
-        <div id="left" >
-            <div class="media user-media well-small">
+        <div id="left">
+            <div class="media user-media well-small"  >
                 <a class="user-link" href="#">
                     <img class="media-object img-thumbnail user-img" alt="User Picture" src="{{ auth()->user()->photo }}" width="64" height="64" />
                 </a>
                 <br />
-                <div class="media-body">
+                <div class="media-body" >
                     <h5 class="media-heading"> {{ Auth::user()->lname }}</h5>
                     <ul class="list-unstyled user-info">
                         
@@ -301,4 +301,5 @@
         </div>
         <!--**********************************
             Sidebar end
-        ***********************************-->
+        ***********************************-->  
+  

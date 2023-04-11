@@ -81,6 +81,91 @@
     </li>
     @endif
   
+    @if (Auth::user()->role == "Head Master")
+    <li class="panel ">
+        <a href="javascript:void()" data-parent="#menu" data-toggle="collapse" class="accordion-toggle"  data-target="#component-nav">
+            <i class="icon-archive" > </i>&nbsp;Admission Management     
+  
+            <span class="pull-right">
+              <i class="icon-angle-left"></i>
+            </span>
+           {{-- &nbsp; <span class="label label-default">10</span>&nbsp; --}}
+        </a>
+        <ul class="collapse" id="component-nav">
+           
+            <li class=""><a href="admin-parents"><i class="icon-minus-sign"></i> &nbsp;Parents </a></li>
+             <li class=""><a href="admin-students"><i class="icon-minus-sign"></i> &nbsp;Students </a></li>
+        </ul>
+    </li>
+
+    <li class="panel ">
+        <a href="javascript:void()" data-parent="#menu" data-toggle="collapse" class="accordion-toggle"  data-target="#operation">
+            <i class="icon-cogs" > </i>&nbsp;School Operations   
+    
+            <span class="pull-right">
+              <i class="icon-angle-left"></i>
+            </span>
+           {{-- &nbsp; <span class="label label-default">10</span>&nbsp; --}}
+        </a>
+        <ul class="collapse" id="operation">
+           
+          <li class=""><a href="admin-class-students"><i class="icon-minus-sign"></i>&nbsp;Class Students </a></li>
+          <li class=""><a href="admin-class-subjects"><i class="icon-minus-sign"></i>&nbsp;Class Subjects </a></li>
+          <li class=""><a href="admin-class-teachers"><i class="icon-minus-sign"></i>&nbsp;Class Teachers </a></li>
+        </ul>
+    </li>
+
+    <li class="panel ">
+        <a href="javascript:void()" data-parent="#menu" data-toggle="collapse" class="accordion-toggle"  data-target="#library">
+            <i class="icon-book" > </i>&nbsp;&nbsp;Library Managements     
+  
+            <span class="pull-right">
+              <i class="icon-angle-left"></i>
+            </span>
+           {{-- &nbsp; <span class="label label-default">10</span>&nbsp; --}}
+        </a>
+        <ul class="collapse" id="library">
+           
+            <li class=""><a href="teacher-books"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Books </a></li>
+             <li class=""><a href="teacher-library-users"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Library Users </a></li>
+            <li class=""><a href="teacher-issues"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Issue </a></li>
+        </ul>
+    </li>
+   
+    <li class="panel ">
+        <a href="javascript:void()" data-parent="#menu" data-toggle="collapse" class="accordion-toggle"   data-target="#transport">
+            <i class="icon-truck" > </i>&nbsp;&nbsp;Transport Managements    
+  
+            <span class="pull-right">
+              <i class="icon-angle-left"></i>
+            </span>
+           {{-- &nbsp; <span class="label label-default">10</span>&nbsp; --}}
+        </a>
+        <ul class="collapse" id="transport">
+           
+            <li class=""><a href="button.html"><i class="icon-minus-sign"></i>&nbsp;Vehicles </a></li>
+            <li class=""><a href="button.html"><i class="icon-minus-sign"></i>&nbsp;Fuel Usage </a></li>
+             <li class=""><a href="icon.html"><i class="icon-minus-sign"></i>&nbsp;Routes </a></li>
+            <li class=""><a href="progress.html"><i class="icon-minus-sign"></i>&nbsp;Routes Members </a></li>
+        </ul>
+    </li>
+    <li class="panel ">
+        <a href="javascript:void()" data-parent="#menu" data-toggle="collapse" class="accordion-toggle"  data-target="#hostel">
+            <i class="icon-home" > </i>&nbsp;Hostel Managements    
+  
+            <span class="pull-right">
+              <i class="icon-angle-left"></i>
+            </span>
+           {{-- &nbsp; <span class="label label-default">10</span>&nbsp; --}}
+        </a>
+        <ul class="collapse" id="hostel">
+           
+            <li class=""><a href="button.html"><i class="icon-minus-sign"></i>&nbsp;Rooms </a></li>
+            <li class=""><a href="progress.html"><i class="icon-minus-sign"></i>&nbsp;Room Members </a></li>
+        </ul>
+    </li>
+   
+    @endif
 
     <li class="panel ">
         <a href="javascript:void()" data-parent="#menu" data-toggle="collapse" class="accordion-toggle"  data-target="#activity">
@@ -93,10 +178,10 @@
         </a>
         <ul class="collapse" id="activity">
         
-            <li class=""><a href="button.html"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Students Routine </a></li>
-            <li class=""><a href="icon.html"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Teacher on Duties </a></li>
-            <li class=""><a href="progress.html"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Class Time Table </a></li>
-            <li class=""><a href="tabs_panels.html"><i class="icon-minus-sign"></i>&nbsp;&nbsp;School Calender</a></li>
+            <li class=""><a href="teacher-student-routine"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Students Routine </a></li>
+            <li class=""><a href="teacher-teacher-duties"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Teacher on Duties </a></li>
+            <li class=""><a href="teacher-class-time-table"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Class Time Table </a></li>
+            {{-- <li class=""><a href="tabs_panels.html"><i class="icon-minus-sign"></i>&nbsp;&nbsp;School Calender</a></li> --}}
         </ul>
     </li>
     <li class="panel ">
