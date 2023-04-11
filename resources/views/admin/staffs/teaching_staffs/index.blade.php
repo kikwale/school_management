@@ -322,6 +322,7 @@
               <option value="Second Master">Second Master</option>
               <option value="Academic">Academic</option>
               <option value="Accountant">Accountant</option>
+              <option value="Librarian">Librarian</option>
               <option value="Discipline">Discipline</option>
               <option value="Sport Teacher">Sport Teacher</option>
               <option value="Normal Teacher">Normal Teacher</option>

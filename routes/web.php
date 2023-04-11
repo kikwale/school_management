@@ -241,7 +241,16 @@ Route::group(['middleware'=>'auth'], function () {
     Route::post('/teacherGetClassFeeReport','FeesController@teacherGetClassFeeReport')->name('teacher.getClassFeeReport');
     Route::get('/adminGetStreamReport','FeesController@adminGetStreamReport')->name('teacher.getStreamReport');
     Route::get('/adminGetStream','FeesController@adminGetStream')->name('teacher.getStream');
+
+    //Students routine
+    Route::get('/teacher-students-routine','StudentsRoutineController@teacherStudentsRoutine')->name('teacher.students-routine');
     
+    //teacher-books
+    Route::get('/teacher-books','LibraryController@teacherBooks')->name('teacher.books');
+    Route::post('/teacher-save-book','LibraryController@teacherSaveBook')->name('teacher.save-book');
+    Route::post('/teacher-edit-book','LibraryController@teacherEditBook')->name('teacher.edit-book');
+    Route::get('/teacher-library-users','LibraryController@teacherLibraryUsers')->name('teacher.library-users');
+      
 });
     
 });
