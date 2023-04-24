@@ -179,7 +179,7 @@
         </a>
         <ul class="collapse" id="activity">
         
-            <li class=""><a href="teacher-student-routine"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Students Routine </a></li>
+            <li class=""><a href="{{ route('routines') }}"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Students Routine </a></li>
             <li class=""><a href="teacher-teacher-duties"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Teacher on Duties </a></li>
             <li class=""><a href="teacher-class-time-table"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Class Time Table </a></li>
             {{-- <li class=""><a href="tabs_panels.html"><i class="icon-minus-sign"></i>&nbsp;&nbsp;School Calender</a></li> --}}

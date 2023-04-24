@@ -75,8 +75,10 @@
                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
                                 <tr>
-                                    <th>Contribution Name</th>
-                                    <th>Amount</th>
+                                    <th>Activity</th>
+                                    <th>Starting Time</th>
+                                    <th>Ending Time</th>
+                                    <th>Description</th>
                                     @if (Auth::user()->role == "Head Master")
                                     <th>Action</th>
                                     @endif
@@ -86,8 +88,10 @@
                             <tbody>
                                 @foreach ($data as $value)
                                 <tr class="odd gradeX">
-                                   <td>{{ $value->name	 }}</td>
-                                    <td>{{ $value->amount }}</td>
+                                   <td>{{ $value->activity }}</td>
+                                    <td>{{ $value->starting_time }}</td>
+                                    <td>{{ $value->ending_time }}</td>
+                                    <td>{{ $value->description }}</td>
                                     @if (Auth::user()->role == "Head Master")
                                     <td class="center"><a data-toggle="modal" data-target="#edit{{ $value->id }}" href="#"><i class="icon-edit text-primary"></i></a> &nbsp; <a data-toggle="modal" data-target="#delete{{ $value->id }}" href="#"><i class="icon-trash text-danger"></i></a></td>
                               
@@ -107,7 +111,7 @@
                                             
                                             <div class="modal-body">
                                             <div class="form-group">
-                                                <label><sup class="text-danger">*</sup>&nbsp; Contribution Name</label>
+                                                <label><sup class="text-danger">*</sup>&nbsp; Activity Name</label>
                                                 <input required name="name" id="name" value="{{ $value->name }}" class="form-control" />
                                                 <input type="hidden" name="id" value="{{ $value->id }}" class="form-control" />
                                             </div>
@@ -173,21 +177,30 @@
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title" id="H4"> New Registration</h4><br>
+                  <h4 class="modal-title" id="H4"> Register Student Routine</h4><br>
                   <sup class="text-danger">*</sup>&nbsp; This symbol means the field is mandatory (Should filled)
               </div>
            
-            <form role="form" method="post" action="teacher-save-contribution" enctype="multipart/form-data">
+            <form role="form" method="post" action="{{ route('create-routine') }}" enctype="multipart/form-data">
                 @csrf
             <div class="modal-body">
                 <div class="form-group">
-                    <label><sup class="text-danger">*</sup>&nbsp; Contribution Name</label>
+                    <label><sup class="text-danger">*</sup>&nbsp; Activity Name</label>
                     <input required name="name" id="name" type="text" class="form-control" />
                 </div>
-               <div class="form-group">
-                    <label><sup class="text-danger">*</sup>&nbsp;Amount</label>
-                    <input required type="number" step="any"  name="amount" id="amount" class="form-control" />
+                <div class="form-group">
+                    <label><sup class="text-danger">*</sup>&nbsp; Starting Time</label>
+                    <input required name="start_time" id="name" type="time" class="form-control" />
                 </div>
+                <div class="form-group">
+                    <label><sup class="text-danger">*</sup>&nbsp; Ending Time</label>
+                    <input required name="end_time" id="name" type="time" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="desc" class="form-control"></textarea>
+                </div>
+              
       
               </div>
               <div class="modal-footer">
