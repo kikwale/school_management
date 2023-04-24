@@ -1,16 +1,16 @@
 @extends('layouts.home')
 @section('content')
     
-<div class="container">
+<div class="container " style="background-color: rgb(255, 255, 255)">
     <div class="text-center">
         <img src="assets/img/logo.png"  alt=" Logo" height="200px;" width="200px;"/>
     </div>
-    <div class="tab-content">
-        <div id="login" class="tab-pane active">
+    <div class="tab-content" >
+        <div id="login" class="tab-pane active ">
             <form action="login" method="post" class="form-signin">
                 @csrf
                 <p class="text-muted text-center btn-block btn btn-primary btn-rect">
-                    Enter your username and password
+                    Enter your email and password
                 </p>
                 <input type="text" name="email" placeholder="Username" class="form-control" />
                 <input type="password" name="password" placeholder="Password" class="form-control" />
