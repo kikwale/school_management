@@ -128,7 +128,7 @@
            
             <li class=""><a href="teacher-books"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Books </a></li>
              <li class=""><a href="teacher-library-users"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Library Users </a></li>
-            <li class=""><a href="teacher-issues"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Issue </a></li>
+            <li class=""><a href="teacher-borrowers"><i class="icon-minus-sign"></i>&nbsp;&nbsp;Book Borrowers </a></li>
         </ul>
     </li>
    
@@ -143,10 +143,11 @@
         </a>
         <ul class="collapse" id="transport">
            
-            <li class=""><a href="button.html"><i class="icon-minus-sign"></i>&nbsp;Vehicles </a></li>
-            <li class=""><a href="button.html"><i class="icon-minus-sign"></i>&nbsp;Fuel Usage </a></li>
-             <li class=""><a href="icon.html"><i class="icon-minus-sign"></i>&nbsp;Routes </a></li>
-            <li class=""><a href="progress.html"><i class="icon-minus-sign"></i>&nbsp;Routes Members </a></li>
+            <li class=""><a href="teacher-vehicles"><i class="icon-minus-sign"></i>&nbsp;Vehicles </a></li>
+            <li class=""><a href="teacher-routes"><i class="icon-minus-sign"></i>&nbsp;Routes </a></li>
+            <li class=""><a href="teacher-stations"><i class="icon-minus-sign"></i>&nbsp;Stations </a></li>
+            <li class=""><a href="teacher-vehicle-routes"><i class="icon-minus-sign"></i>&nbsp;Vehicle Routes & Stations </a></li>
+            <li class=""><a href="teacher-station-members"><i class="icon-minus-sign"></i>&nbsp;Station Members </a></li>
         </ul>
     </li>
     <li class="panel ">
