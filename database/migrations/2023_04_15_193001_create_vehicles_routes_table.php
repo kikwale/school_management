@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLibraryUsersTable extends Migration
+class CreateVehiclesRoutesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,20 @@ class CreateLibraryUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('library_users', function (Blueprint $table) {
+        Schema::create('vehicles_routes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('schools_id');
             $table->foreign('schools_id')->references('id')->on('schools')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
+            $table->unsignedBigInteger('vehicles_id');
+            $table->foreign('vehicles_id')->references('id')->on('vehicles')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('fullname');
-            $table->date('date');
-            $table->string('user_type');
-            $table->string('phone')->nullable();
-            $table->time('entry_time');
-            $table->time('outing_time')->nullable();
-            $table->boolean('isActive')->default(true);
+            $table->unsignedBigInteger('routes_stations_id');
+            $table->foreign('routes_stations_id')->references('id')->on('routes_stations')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -37,6 +38,6 @@ class CreateLibraryUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('library_users');
+        Schema::dropIfExists('vehicles_routes');
     }
 }

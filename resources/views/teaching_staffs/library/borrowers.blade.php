@@ -21,7 +21,7 @@
           <div class="col-md-12">
             <ul class="breadcrumb bg-white">
               <li><a href="home">Dashboard</a></li>
-              <li>Library Users</li>
+              <li>Library Borrowers</li>
             </ul>
           </div>
         </div>
@@ -57,30 +57,74 @@
           </div>
           <div class="col-lg-3">
             @if (Auth::user()->role == "Head Master")
-            <button class="btn btn-primary btn-grad btn-rect" data-toggle="modal" data-target="#newReg"><i class="icon-plus"></i> New Library User</button>
+            <a href="teacher-borrower-form" class="btn btn-primary btn-grad btn-rect" ><i class="icon-plus"></i> New Borrower</a>
    
             @endif
               
           </div>
       </div><br>
 
+        <!-- AUTOMATIC JUMP-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <header>
+                        <div class="icons"><i class="icon-exchange"></i></div>
+                        <h5>Filter Borrowers</h5>
+                    </header>
+                    <div class="body">
+
+                        <form method="POST" action="teachere-filter-borrowers" id="validVal" class="form-inline">
+                            @csrf
+                            {{-- <div class="row form-group">
+                                <div class="col-lg-4">
+                                    <input class="form-control autotab" type="text" maxlength="3" tabindex="11" />
+                                </div>
+                                <div class="col-lg-4">
+                                    <input class="form-control autotab" type="text" maxlength="4" tabindex="12" />
+                                </div>
+                                <div class="col-lg-4">
+                                    <input class="form-control" type="text" maxlength="5" tabindex="13" />
+                                </div>
+                            </div> --}}
+                            <div class="row form-grou">
+                                <div class="col-lg-6 col-md-4">
+                                    <select class="form-control autotab chzn-select" name="user_type" tabindex="14">
+                                        <option value="">Filter By</option>
+                                        <option value="Student">Student</option>
+                                        <option value="Teacher">Teacher</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-4">
+                                  <button class="btn btn-primary btn-grad btn-rect" type="submit">Filter</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><br>
+        <!--END AUTOMATIC JUMP-->
+
         <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                  Library Users
+                  Borrowers
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
                                 <tr>
-                                    <th>Date</th>
+                                    <th>Borrowing Date</th>
                                     <th>FullName</th>
-                                    <th>User Type</th>
-                                    <th>Phone</th>
-                                    <th>Entry Time</th>
-                                    <th>Time Out</th>
+                                    <th>Book</th>
+                                    <th>Deadline</th>
+                                    <th>Status</th>
                                     @if (Auth::user()->role == "Head Master" || Auth::user()->role == "Librarian")
                                     <th>Action</th>
                                     @endif
@@ -90,14 +134,20 @@
                             <tbody>
                                 @foreach ($data as $value)
                                 <tr class="odd gradeX">
-                                   <td>{{ $value->date }}</td>
+                                   <td>{{ $value->borrowing_date }}</td>
                                    <td>{{ $value->fullname	 }}</td>
-                                    <td>{{ $value->user_type }}</td>
-                                    <td>{{ $value->phone }}</td>
-                                    <td>{{ $value->entry_time }}</td>
-                                    <td>{{ $value->outing_time }}</td>
+                                    <td>{{ $value->book_name }}</td>
+                                    <td>{{ $value->returning_date }}</td>
+                                    <td>
+                                        @if ($value->returning_date < date('Y-m-d'))
+                                        <span class="label label-danger">Time Out</span>
+                                        @else
+                                        <span class="label label-success">Within Time</span>
+                                        @endif
+                                      
+                                    </td>
                                     @if (Auth::user()->role == "Head Master" || Auth::user()->role == "Librarian")
-                                    <td class="center"><a data-toggle="modal" data-target="#edit{{ $value->id }}" href="#"><i class="icon-edit text-primary"></i></a> &nbsp; <a data-toggle="modal" data-target="#delete{{ $value->id }}" href="#"><i class="icon-trash text-danger"></i></a></td>
+                                     <td><a data-toggle="modal" data-target="#delete{{ $value->id }}" href="#"><i class="icon-trash text-danger"></i></a></td>
                               
                                     @endif
                                 </tr>
@@ -129,7 +179,7 @@
                                                     <option value="{{ $value->user_type }}">{{ $value->user_type }}</option>
                                                     <option value="Student">Student</option>
                                                     <option value="Teacher">Teacher</option>
-                                                    <option value="Others">Others</option>
+                                                    <option value="Teacher">Others</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -164,7 +214,7 @@
                                                 <h4 class="modal-title" id="H4">Delete Here</h4><br>
                                             </div>
                                             <div class="modal-body">
-                                        <form role="form" method="post" action="teacher-delete-library-user" enctype="multipart/form-data">
+                                        <form role="form" method="post" action="teacher-delete-borrowers" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group">
                                                 <label class="text-danger" style="float:center;"> Are sure you want to delete ?</label>
@@ -209,13 +259,19 @@
             <form role="form" method="post" action="teacher-save-library-user" enctype="multipart/form-data">
                 @csrf
             <div class="modal-body">
-                <div class="form-group">
-                    <label><sup class="text-danger">*</sup>&nbsp; Fullname</label>
-                    <input required name="fullname" id="fullname" type="text" class="form-control" />
-                </div>
+             
                 <div class="form-group">
                     <label><sup class="text-danger">*</sup>&nbsp; Date</label>
                     <input required name="date" id="date" type="date" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label><sup class="text-danger">*</sup>&nbsp; Borrower Name</label>
+                     <select name="library_users_id" id="library_users_id" class="chz n-select form-control ">
+                        <option value=""></option>
+                        @foreach ($library_users as $library_user)
+                            <option value="{{ $library_user->id }}">{{ $library_user->fullname }}</option>
+                        @endforeach
+                     </select>
                 </div>
                 <div class="form-group">
                     <label><sup class="text-danger">*</sup>&nbsp; User Type</label>
