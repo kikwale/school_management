@@ -7,17 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use App\Http\Controllers\RoutineController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/', function () {
   return view('welcome');
@@ -284,6 +276,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::POST('/teacher-save-stations', 'TransportController@teacherSaveStations')->name('teacher.save-stations');
     Route::post('/teacher-edit-stations', 'TransportController@teacherEditStations')->name('teacher.edit-stations');
     Route::post('/teacher-delete-stations', 'TransportController@teacherDeleteStations')->name('teacher.delete-stations');
+  
+    # Routine routes definition
+    Route::get('/student-routines', [RoutineController::class, 'index'])->name('routines');
+    Route::post('/create-routine', [RoutineController::class, 'createRoutine'])->name('create-routine');
+  
   });
 });
 
